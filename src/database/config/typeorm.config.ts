@@ -9,7 +9,7 @@ export default class TypeOrmConfig {
             host: config.get('db.host'),
             port: config.get<number>('db.port'),
             username: config.get('db.username'),
-            password: config.get('DB_PASSWORD'),
+            password: config.get('db.password'),
             database: config.get('db.name'),
             synchronize: config.get<boolean>('synchronize'),
             migrationsRun: config.get<boolean>('migrationsRun'),
