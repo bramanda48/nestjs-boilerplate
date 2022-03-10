@@ -1,23 +1,18 @@
 server:
     port: 3000
-  
-db:
-    type: 'postgres'
-    port: 5432
-    database: 'your-postgres-db-name'
 
-jwt:
-    expiresIn: 3600
-    
 db:
     host: 'localhost'
+    port: 5432
     username: 'your-postgres-username'
     password: 'your-postgres-password'
+    name: 'your-database-name'
     synchronize: true
     migrationsRun: false
   
 jwt:
     secret: 'secret-key'
+    expiresIn: 3600
 
 redis:
     host: 'localhost'
