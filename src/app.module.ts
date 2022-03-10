@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeOrmConfigAsync } from './database/config';
 import configurationYaml from './app.config';
 import { AppController } from './app.controller';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
     imports: [
@@ -15,6 +16,12 @@ import { AppController } from './app.controller';
         
         // Typeorm module
         TypeOrmModule.forRootAsync(typeOrmConfigAsync),
+
+        // Rate limiting
+        ThrottlerModule.forRoot({
+            ttl: 60,
+            limit: 10,
+        }),
     ],
     controllers: [AppController],
     providers: [],
