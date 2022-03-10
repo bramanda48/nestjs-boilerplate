@@ -6,7 +6,7 @@ import { WinstonModule } from 'nest-winston';
 import { winstonConfig } from './app.logger';
 import { AppModule } from './app.module';
 import Helmet from 'helmet';
-import compression from 'compression';
+import * as compression from 'compression';
 
 async function bootstrap() {
     // Get logger
@@ -34,7 +34,7 @@ async function bootstrap() {
         .setTitle('Nestjs Boilerplate')
         .setVersion('1.0')
         .setContact('John Doe', 'http://www.example.com', 'example@mailinator.com')
-        .setDescription('Nestjs API Boilerplate: Typescript, PostgreSQL, TypeORM, Swagger for Api documentation, Passport-JWT authentication, Jest, Env configuration, Migrations, Seeds, Docker, Redis, AWS S3, and best application architecture.')
+        .setDescription('Typescript, PostgreSQL, TypeORM, Swagger for Api documentation, Passport-JWT authentication, Jest, Env configuration, Migrations, Seeds, Docker, Redis, AWS S3, and best application architecture.')
         .addBearerAuth({
             in: 'header', 
             type: 'http', 
