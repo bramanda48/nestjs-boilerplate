@@ -1,8 +1,9 @@
-import { Module } from "@nestjs/common";
+import { Global, Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { UserEntity } from "./entity";
-import Repo from "./repo.service";
+import { Repo } from "./repo.service";
 
+@Global()
 @Module({
     imports: [
         // Load entity

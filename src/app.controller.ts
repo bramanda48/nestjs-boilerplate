@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Version, VERSION_NEUTRAL } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Home')
@@ -6,6 +6,7 @@ import { ApiTags } from '@nestjs/swagger';
 export class AppController {
 
     @Get()
+    @Version(VERSION_NEUTRAL)
     getHello(): {
         message: string
     } {

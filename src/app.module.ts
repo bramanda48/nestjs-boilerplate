@@ -5,6 +5,7 @@ import { typeOrmConfigAsync } from './database/config';
 import configurationYaml from './app.config';
 import { AppController } from './app.controller';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { SharedModule } from './modules/shared.module';
 
 @Module({
     imports: [
@@ -22,6 +23,8 @@ import { ThrottlerModule } from '@nestjs/throttler';
             ttl: 60,
             limit: 10,
         }),
+
+        SharedModule,
     ],
     controllers: [AppController],
     providers: [],
