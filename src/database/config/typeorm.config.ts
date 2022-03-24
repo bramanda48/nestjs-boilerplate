@@ -11,8 +11,8 @@ export default class TypeOrmConfig {
             username: config.get('db.username'),
             password: config.get('db.password'),
             database: config.get('db.name'),
-            synchronize: config.get<boolean>('synchronize'),
-            migrationsRun: config.get<boolean>('migrationsRun'),
+            synchronize: config.get<boolean>('db.synchronize'),
+            migrationsRun: config.get<boolean>('db.migrationsRun'),
             autoLoadEntities: false,
             entities: [
                 join(__dirname, '..', 'entity', '*.entity.{js,ts}')
