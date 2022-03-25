@@ -41,3 +41,6 @@ config/production.yaml
 
 # Docker files
 docker-compose.yml
+
+# Remove all .bak
+*.bak
