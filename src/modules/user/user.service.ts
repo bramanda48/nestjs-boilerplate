@@ -27,12 +27,20 @@ export class UserService {
         return await paginate<UserEntity>(this.repo.userEntity, pagination);
     }
 
-    async findOne(id: number): Promise<UserEntity> {
-        return await this.repo.userEntity.findOne(id);
+    async findOne(id: string): Promise<UserEntity> {
+        return await this.repo.userEntity.findOne({
+            where: {
+                id: id
+            }
+        });
     }
 
-    async update(id: number, updateUserDto: UpdateUserDto): Promise<UserEntity> {
-        const getUser = await this.repo.userEntity.findOne(id);
+    async update(id: string, updateUserDto: UpdateUserDto): Promise<UserEntity> {
+        const getUser = await this.repo.userEntity.findOne({
+            where: {
+                id: id
+            }
+        });
         if(!getUser) {
             throw new NotFoundException('User not found.')
         }
