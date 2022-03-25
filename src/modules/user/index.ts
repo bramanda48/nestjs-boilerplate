@@ -1,6 +1,6 @@
 // created from ctix
 
-export * from './user.controller';
 export * from './user.module';
-export * from './user.service';
+export * from './services';
 export * from './dto';
+export * from './controllers';
