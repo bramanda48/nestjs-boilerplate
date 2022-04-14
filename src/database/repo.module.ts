@@ -1,15 +1,25 @@
-import { Global, Module } from "@nestjs/common";
+import { CacheModule, Global, Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { UserEntity } from "./entity";
 import { Repo } from "./repo.service";
+import { UniqueCodeEntity } from "./entity/unique_code.entity";
+import { UserEntity } from "./entity/user.entity";
 
 @Global()
 @Module({
     imports: [
         // Load entity
         TypeOrmModule.forFeature([
-            UserEntity
+            UserEntity,
+            UniqueCodeEntity
         ]),
+
+        // Cache module
+        CacheModule.register({
+            store: 'memory',
+            isCacheableValue: ((value) => {
+                return value !== null && value !== false && value !== undefined;
+            })
+        }),
     ],
     providers: [Repo],
     exports: [Repo]

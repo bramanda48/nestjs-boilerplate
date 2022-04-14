@@ -1,9 +1,29 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpStatus, Query, ParseIntPipe, DefaultValuePipe } from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    DefaultValuePipe,
+    Delete,
+    Get,
+    HttpStatus,
+    Param,
+    ParseIntPipe,
+    Patch,
+    Post,
+    Query
+    } from '@nestjs/common';
+import {
+    ApiCreatedResponse,
+    ApiNotFoundResponse,
+    ApiOkResponse,
+    ApiOperation,
+    ApiResponse,
+    ApiTags
+    } from '@nestjs/swagger';
+import { PaginationDto } from '../../../common/dto/pagination.dto';
+import { UserEntity } from '../../../database/entity/user.entity';
+import { CreateUserDto } from '../dto/create-user.dto';
+import { UpdateUserDto } from '../dto/update-user.dto';
 import { UserService } from '../services/user.service';
-import { CreateUserDto, UpdateUserDto } from '../dto';
-import { ApiCreatedResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { UserEntity } from 'src/database';
-import { PagininationDto } from 'src/common/dto';
 
 @ApiTags('Users')
 @ApiResponse({ 
@@ -29,7 +49,7 @@ export class UserController {
     @ApiOperation({summary: 'Get all user' })
     @ApiOkResponse({description: 'Get data sucess.'})
     findAll(
-        @Query() pagination: PagininationDto,
+        @Query() pagination: PaginationDto,
     ) {
         return this.userService.findAll({
             page: pagination.page,
@@ -37,7 +57,7 @@ export class UserController {
         });
     }
 
-    @Get(':id')
+    @Get('/:id')
     @ApiOperation({summary: 'Get one user' })
     @ApiOkResponse({description: 'Get data sucess.'})
     findOne(
@@ -46,7 +66,7 @@ export class UserController {
         return this.userService.findOne(id);
     }
 
-    @Patch(':id')
+    @Patch('/:id')
     @ApiOperation({summary: 'Update one user' })
     @ApiOkResponse({description: 'User updated.'})
     @ApiNotFoundResponse({description: 'User not found.'})
@@ -57,7 +77,7 @@ export class UserController {
         return this.userService.update(id, updateUserDto);
     }
 
-    @Delete(':id')
+    @Delete('/:id')
     @ApiOperation({summary: 'Delete one user' })
     @ApiOkResponse({description: 'Delete succesfully.'})
     remove(@Param('id') id: string) {

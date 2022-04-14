@@ -1,4 +1,4 @@
-import { ClassSerializerInterceptor, Logger, ValidationPipe, VersioningType } from '@nestjs/common';
+import { BadRequestException, ClassSerializerInterceptor, HttpCode, HttpStatus, Logger, ValidationError, ValidationPipe, VersioningType } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory, Reflector } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
@@ -41,7 +41,31 @@ async function bootstrap() {
     app.use(compression());
 
     // Add validation pipe
-    app.useGlobalPipes(new ValidationPipe());
+    app.useGlobalPipes(new ValidationPipe({
+        exceptionFactory: (error: ValidationError[] = []) => {
+            let errorMessage: string[] = [];
+            if(error[0].constraints) {
+                const message: string[] = Object.values(error[0].constraints);
+                errorMessage.push(...message);
+            } else {
+                error[0].children.forEach(function(v) {
+                    const message: string[] = Object.values(v.constraints);
+                    errorMessage.push(...message);
+                });
+            }
+            return new BadRequestException({
+                statusCode: HttpStatus.BAD_REQUEST,
+                message: 'INVALID_VALIDATION',
+                error: 'Bad Request',
+                fields: error.map((v) => {
+                    delete v.target;
+                    delete v.value;
+                    delete v.children;
+                    return v;
+                })
+            });
+        },
+    }));
     app.useGlobalInterceptors(
         new ClassSerializerInterceptor(app.get(Reflector))
     );
@@ -56,7 +80,11 @@ async function bootstrap() {
             `<p>Official website: <a target="_blank" href="https://example.com">https://example.com</a><br/>` +
             `Additional documentation: <a target="_blank" href="https://docs.example.com">https://docs.example.com</a> <br/>` +
             `Source code: <a target="_blank" href="hhttps://github.com/bramanda48/nestjs-boilerplate">https://github.com/bramanda48/nestjs-boilerplate</a></p>`,
-        );
+        )
+        .addBearerAuth({
+            type: 'http',
+            description: 'Access endpoint <strong>/auth/token</strong> or <strong>/auth/provider/{:name}</strong> to get the token.'
+        });
 
     if (environment === 'development') {
         app.enableCors();

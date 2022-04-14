@@ -1,7 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Exclude } from "class-transformer";
-import { Column, Entity } from "typeorm";
+import { Column, Entity, OneToMany } from "typeorm";
 import { AbstractEntity } from "./abstract.entity";
+import { UniqueCodeEntity } from "./unique_code.entity";
 
 @Entity({name: 'user'})
 export class UserEntity extends AbstractEntity {
@@ -32,4 +33,16 @@ export class UserEntity extends AbstractEntity {
         comment: 'Password hash using bcrypt'
     })
     password: string;
+
+    @Column({
+        type: 'bool',
+        default: false
+    })
+    is_active: boolean;
+
+    // Join column
+    @OneToMany(() => UniqueCodeEntity, (column) => column.user, {
+        onDelete: 'CASCADE'
+    })
+    uniqueCode: UniqueCodeEntity[];
 }

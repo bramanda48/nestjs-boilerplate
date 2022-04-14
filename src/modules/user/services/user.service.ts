@@ -1,8 +1,10 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
-import { Repo, UserEntity } from 'src/database';
-import { CreateUserDto, UpdateUserDto } from '../dto';
-import { IPaginationOptions, paginate, Pagination } from 'nestjs-typeorm-paginate';
 import * as bcrypt from 'bcrypt';
+import { IPaginationOptions, paginate, Pagination } from 'nestjs-typeorm-paginate';
+import { UserEntity } from '../../../database/entity/user.entity';
+import { Repo } from '../../../database/repo.service';
+import { CreateUserDto } from '../dto/create-user.dto';
+import { UpdateUserDto } from '../dto/update-user.dto';
 
 @Injectable()
 export class UserService {
@@ -13,7 +15,9 @@ export class UserService {
     // Define logger
     private logger: Logger = new Logger(UserService.name);
 
-    async create(createUserDto: CreateUserDto): Promise<UserEntity> {
+    async create(
+        createUserDto: CreateUserDto
+    ): Promise<UserEntity> {
         const password = await bcrypt.hash(createUserDto.password, 10);
         const saveUser = this.repo.userEntity.save({
             ...createUserDto,
@@ -22,11 +26,15 @@ export class UserService {
         return saveUser;
     }
 
-    async findAll(pagination: IPaginationOptions): Promise<Pagination<UserEntity>> {
+    async findAll(
+        pagination: IPaginationOptions
+    ): Promise<Pagination<UserEntity>> {
         return await paginate<UserEntity>(this.repo.userEntity, pagination);
     }
 
-    async findOne(id: string): Promise<UserEntity> {
+    async findOne(
+        id: string
+    ): Promise<UserEntity> {
         return await this.repo.userEntity.findOne({
             where: {
                 id: id
@@ -34,7 +42,10 @@ export class UserService {
         });
     }
 
-    async update(id: string, updateUserDto: UpdateUserDto): Promise<UserEntity> {
+    async update(
+        id: string, 
+        updateUserDto: UpdateUserDto
+    ): Promise<UserEntity> {
         const getUser = await this.repo.userEntity.findOne({
             where: {
                 id: id
@@ -51,7 +62,9 @@ export class UserService {
         return getUser;
     }
 
-    async remove(id: string) {
+    async remove(
+        id: string
+    ) {
         return await this.repo.userEntity.softDelete(id);
     }
 }
