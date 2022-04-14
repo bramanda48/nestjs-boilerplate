@@ -1,11 +1,11 @@
-import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { typeOrmConfigAsync } from './database/config';
 import configurationYaml from './app.config';
 import { AppController } from './app.controller';
-import { ThrottlerModule } from '@nestjs/throttler';
+import { ConfigModule } from '@nestjs/config';
+import { Module } from '@nestjs/common';
 import { SharedModule } from './modules/shared.module';
+import { ThrottlerModule } from '@nestjs/throttler';
+import { typeOrmConfigAsync } from './database/config/typeorm.config';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
     imports: [

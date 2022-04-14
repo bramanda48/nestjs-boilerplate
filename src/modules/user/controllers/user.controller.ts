@@ -1,9 +1,28 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpStatus, Query, ParseIntPipe, DefaultValuePipe } from '@nestjs/common';
+import {
+    ApiCreatedResponse,
+    ApiNotFoundResponse,
+    ApiOkResponse,
+    ApiOperation,
+    ApiResponse,
+    ApiTags
+    } from '@nestjs/swagger';
+import {
+    Body,
+    Controller,
+    Delete,
+    Get,
+    HttpStatus,
+    Param,
+    Patch,
+    Post,
+    Query
+    } from '@nestjs/common';
+import { CreateUserDto } from '../dto/create-user.dto';
+import { PaginationDto } from '../../../common/dto/pagination.dto';
+import { UpdateUserDto } from '../dto/update-user.dto';
+import { UserEntity } from '../../../database/entity/user.entity';
 import { UserService } from '../services/user.service';
-import { CreateUserDto, UpdateUserDto } from '../dto';
-import { ApiCreatedResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { UserEntity } from 'src/database';
-import { PagininationDto } from 'src/common/dto';
+
 
 @ApiTags('Users')
 @ApiResponse({ 
@@ -29,7 +48,7 @@ export class UserController {
     @ApiOperation({summary: 'Get all user' })
     @ApiOkResponse({description: 'Get data sucess.'})
     findAll(
-        @Query() pagination: PagininationDto,
+        @Query() pagination: PaginationDto,
     ) {
         return this.userService.findAll({
             page: pagination.page,

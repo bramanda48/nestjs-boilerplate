@@ -2,7 +2,7 @@ import { ApiPropertyOptional } from "@nestjs/swagger";
 import { Type } from "class-transformer";
 import { IsInt, IsOptional, Max, Min } from "class-validator";
 
-export class PagininationDto {
+export class PaginationDto {
 
     @ApiPropertyOptional({
         minimum: 1,
