@@ -1,8 +1,10 @@
-import { Injectable, Logger, NotFoundException } from '@nestjs/common';
-import { Repo, UserEntity } from 'src/database';
-import { CreateUserDto, UpdateUserDto } from '../dto';
-import { IPaginationOptions, paginate, Pagination } from 'nestjs-typeorm-paginate';
 import * as bcrypt from 'bcrypt';
+import { CreateUserDto } from '../dto/create-user.dto';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { IPaginationOptions, paginate, Pagination } from 'nestjs-typeorm-paginate';
+import { Repo } from '../../../database/repo.service';
+import { UpdateUserDto } from '../dto/update-user.dto';
+import { UserEntity } from '../../../database/entity/user.entity';
 
 @Injectable()
 export class UserService {

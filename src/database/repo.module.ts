@@ -1,7 +1,8 @@
-import { Global, Module } from "@nestjs/common";
-import { TypeOrmModule } from "@nestjs/typeorm";
-import { UserEntity } from "./entity";
-import { Repo } from "./repo.service";
+import { Global, Module } from '@nestjs/common';
+import { Repo } from './repo.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserEntity } from './entity/user.entity';
+
 
 @Global()
 @Module({

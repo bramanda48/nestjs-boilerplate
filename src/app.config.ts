@@ -1,6 +1,6 @@
-import { readFileSync } from 'fs';
 import * as yaml from 'js-yaml';
 import { join } from 'path';
+import { readFileSync } from 'fs';
 
 const environment = process.env.NODE_ENV.toLowerCase();
 const yaml_config = `${environment}.yaml`;
