@@ -1,10 +1,10 @@
-import { ApiTags } from '@nestjs/swagger';
 import {
     Controller,
     Get,
     Version,
     VERSION_NEUTRAL
     } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Home')
 @Controller()

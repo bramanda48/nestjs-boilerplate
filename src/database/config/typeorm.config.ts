@@ -5,12 +5,8 @@ import { TypeOrmModuleAsyncOptions, TypeOrmModuleOptions } from '@nestjs/typeorm
 export default class TypeOrmConfig {
     static getConfig(config: ConfigService): TypeOrmModuleOptions {
         return {
-            type: 'postgres',
-            host: config.get('db.host'),
-            port: config.get<number>('db.port'),
-            username: config.get('db.username'),
-            password: config.get('db.password'),
-            database: config.get('db.name'),
+            type: config.get('db.type'),
+            url: config.get('db.url'),
             synchronize: config.get<boolean>('db.synchronize'),
             migrationsRun: config.get<boolean>('db.migrationsRun'),
             autoLoadEntities: false,

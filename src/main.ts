@@ -56,14 +56,33 @@ async function bootstrap() {
             `<p>Official website: <a target="_blank" href="https://example.com">https://example.com</a><br/>` +
             `Additional documentation: <a target="_blank" href="https://docs.example.com">https://docs.example.com</a> <br/>` +
             `Source code: <a target="_blank" href="hhttps://github.com/bramanda48/nestjs-boilerplate">https://github.com/bramanda48/nestjs-boilerplate</a></p>`,
-        );
+        )
+        .addOAuth2({
+            type: 'oauth2',
+            flows: {
+                implicit: {
+                    authorizationUrl: `${config.get('authorizer.issuer')}/authorize`,
+                    tokenUrl: `${config.get('authorizer.issuer')}/oauth/token`,
+                    refreshUrl: `${config.get('authorizer.issuer')}/oauth/token`,
+                    scopes: null
+                }
+            }
+        })
+        .addBearerAuth();
 
     if (environment === 'development') {
         app.enableCors();
 
         // Swagger only enable in development mode       
         const swagger = SwaggerModule.createDocument(app, document.build());
-        SwaggerModule.setup('docs', app, swagger);
+        SwaggerModule.setup('docs', app, swagger, {
+            swaggerOptions: {
+                oauth2RedirectUrl: config.get('authorizer.redirectUrl'),
+                oauth: {
+                    clientId: config.get('authorizer.clientId'),
+                },
+            }
+        });
     }
 
     logger.log(`Application is running in "${environment}" mode`);

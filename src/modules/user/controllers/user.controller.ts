@@ -1,12 +1,4 @@
 import {
-    ApiCreatedResponse,
-    ApiNotFoundResponse,
-    ApiOkResponse,
-    ApiOperation,
-    ApiResponse,
-    ApiTags
-    } from '@nestjs/swagger';
-import {
     Body,
     Controller,
     Delete,
@@ -17,10 +9,18 @@ import {
     Post,
     Query
     } from '@nestjs/common';
-import { CreateUserDto } from '../dto/create-user.dto';
+import {
+    ApiCreatedResponse,
+    ApiNotFoundResponse,
+    ApiOkResponse,
+    ApiOperation,
+    ApiResponse,
+    ApiTags
+    } from '@nestjs/swagger';
 import { PaginationDto } from '../../../common/dto/pagination.dto';
-import { UpdateUserDto } from '../dto/update-user.dto';
 import { UserEntity } from '../../../database/entity/user.entity';
+import { CreateUserDto } from '../dto/create-user.dto';
+import { UpdateUserDto } from '../dto/update-user.dto';
 import { UserService } from '../services/user.service';
 
 

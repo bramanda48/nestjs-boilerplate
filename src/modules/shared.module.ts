@@ -1,10 +1,12 @@
 import { Module } from '@nestjs/common';
-import { RepoModule } from '../database/repo.module';
+import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
+import { RepoModule } from '../database/repo.module';
 
 @Module({
     imports: [
         RepoModule,
+        AuthModule,
         UserModule,
     ],
     controllers: [],

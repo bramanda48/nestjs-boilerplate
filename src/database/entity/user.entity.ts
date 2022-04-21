@@ -6,7 +6,6 @@ import { AbstractEntity } from "./abstract.entity";
 @Entity({name: 'user'})
 export class UserEntity extends AbstractEntity {
 
-    @ApiProperty()
     @Column({
         type: 'varchar', 
         length: 100,
@@ -15,7 +14,6 @@ export class UserEntity extends AbstractEntity {
     })
     name: string;
 
-    @ApiProperty()
     @Column({
         type: 'varchar', 
         length: 50,

@@ -1,0 +1,14 @@
+{
+    "typescript.preferences.importModuleSpecifier": "relative",
+    "typescript.preferences.quoteStyle": "double",
+    "typescript.extension.sortImports.pathSortOrder": [
+        "package",
+        "relativeDownLevel",
+        "relativeUpLevel"
+    ],
+    "typescript.extension.sortImports.sortMethod": "path",
+    "exportall.config.folderListener": [
+        "/src/database/graphql/interfaces",
+        "/src/database/graphql/query"
+    ]
+}
