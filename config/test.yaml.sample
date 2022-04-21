@@ -1,27 +1,18 @@
 server:
-    port: 3000
+  port: 3000
 
 db:
-    host: 'localhost'
-    port: 5432
-    username: 'your-postgres-username'
-    password: 'your-postgres-password'
-    name: 'your-database-name'
-    synchronize: true
-    migrationsRun: false
-  
-jwt:
-    secret: 'secret-key'
-    expiresIn: 3600
+  type: "postgres"
+  url: "postgres://user:password@localhost:5432/database"
+  synchronize: true
+  migrationsRun: false
 
-redis:
-    host: 'localhost'
-    port: 6379
-    ttl: 20
-    max: 100
-    
-awsS3:
-    endPoint: 'http://127.0.0.1:9000'
-    awsS3AccessKeyId: 'your-access-key-username'
-    awsS3SecretAccessKey: 'your-secret-access-key-username'
-    s3BucketName: boilerplate-bucket
+authorizer:
+  issuer: "https://authorizer-domain.com"
+  clientId: "authorizer-client-id"
+  clientSecret: "authorizer-client-secret"
+  redirectUrl: "http://localhost:3000/docs/oauth2-redirect.html"
+  scopes:
+    - openid
+    - profile
+    - email
